@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8">
-<title>Tutorial of Develop</title>
-<link rel="stylesheet" th:href="@{/css/user/list.css}">
+    <meta charset="utf-8">
+    <title>Tutorial of Develop</title>
+    <link rel="stylesheet" th:href="@{/css/user/register.css}">
 </head>
 <body>
     <h1>User情報管理システム</h1>
-    <h2>User一覧(全件)</h2>
-    <!-- 変更ここから -->
-    <form name="frm" method="post" th:action="@{/user/list}">
-        <a th:href="@{/user/register}">Userの登録</a>
-        <input type="submit" name="deleteRun" id="deleteRun" value="(選択)したUserを一括削除">
-        <table>
-            <tr>
-                <th class="center">(選択)</th>
-                <th>ID</th>
-                <th>名前</th>
-                <th>性別</th>
-                <th>年齢</th>
-                <th>メールアドレス</th>
-                <th></th>
-            </tr>
-            <tr th:each="user : ${userlist}">
-                <td class="center"><input type="checkbox" name="idck" th:value="${user.id}"></td>
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.name}"></td>
-                <td th:text="${user.gender}"></td>
-                <td th:text="${user.age}"></td>
-                <td th:text="${user.email}"></td>
-                <td><a th:href="@{/user/update/{id}/(id=${user.id})}">更新</a></td>
-            </tr>
-        </table>
+    <h2>User登録</h2>
+    <form method="post" th:action="@{/user/register}" th:object="${user}">
+        <label for="name">名前</label>
+        <input type="text" th:field="*{name}" th:errorclass="err">
+        <span th:errors="*{name}" class="err"></span>
+        <br>
+
+        <label for="gender">性別</label>
+        <select th:field="*{gender}" th:errorclass="err">
+            <option value="" th:text="選択してください" th:selected="${user.gender == ''}">
+            <option
+                th:each="item:${T(com.techacademy.entity.User.Gender).values()}"
+                th:value="${item}" th:text="${item}" th:selected="*{gender} == ${item}">
+        </select>
+        <span th:errors="*{gender}" class="err"></span>
+        <br>
+
+        <label for="age">年齢</label>
+        <input type="text" th:field="*{age}" th:errorclass="err">
+        <span th:errors="*{age}" class="err"></span>
+        <br>
+
+        <label for="email">メールアドレス</label>
+        <input type="text" th:field="*{email}" th:errorclass="err">
+        <span th:errors="*{email}" class="err"></span>
+        <br>
+        <br>
+
+        <input type="submit" value="登録実行">
+        <a th:href="@{/user/list}">登録せずに一覧に戻る</a>
     </form>
-    <script th:src="@{/js/user/list.js}"></script>
-    <!-- 変更ここまで -->
 </body>
 </html>
