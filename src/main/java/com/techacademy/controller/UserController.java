@@ -68,7 +68,7 @@ public class UserController {
     public String postUser(@Validated User user, BindingResult res, Model model) {
         if(res.hasErrors()) {
             // エラーあり
-            return getRegister(user);
+            return "user/update";
         }
         // User登録
         service.saveUser(user);

@@ -62,13 +62,16 @@ class UserControllerTest {
         List<User> userList =(List<User>) result.getModelAndView().getModel().get("userlist");
         assertEquals(3, userList.size());
         // 1件ずつ取り出し、そのidとnameを検証する
-        for (User user : userList) {
-            assertEquals(1, user.getId());
-            assertEquals("キラメキ太郎", user.getName());
-            assertEquals(2, user.getId());
-            assertEquals("キラメキ次郎", user.getName());
-            assertEquals(3, user.getId());
-            assertEquals("キラメキ花子", user.getName());
+        User user1 = userList.get(0);
+        assertEquals(1, user1.getId());
+        assertEquals("キラメキ太郎", user1.getName());
+
+        User user2 = userList.get(1);
+        assertEquals(2, user2.getId());
+        assertEquals("キラメキ次郎", user2.getName());
+
+        User user3 = userList.get(2);
+        assertEquals(3, user3.getId());
+        assertEquals("キラメキ花子", user3.getName());
         }
     }
-}
